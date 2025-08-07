@@ -1,0 +1,12 @@
+[Unit]
+Description=Pi Monitor Dashboard
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/pi-dashboard/pi-monitor-dashboard.py
+WorkingDirectory=/home/pi/pi-dashboard
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
