@@ -1,0 +1,102 @@
+# Pi Dashboard (Raspberry Pi Monitoring & 3CX Management)
+
+A lightweight, Flask-powered monitoring and control dashboard tailored for Raspberry Pi deployments in field environments. Ideal for managing 3CX SBC services and viewing live hardware stats from a local web interface or embedded within Cockpit.
+
+---
+
+## 📦 Project Purpose
+
+This project was developed to simplify remote and local management of Raspberry Pis used in business-grade VoIP edge deployments (e.g., 3CX SBC). It provides:
+
+- Real-time system monitoring
+- Service controls for 3CX SBC and others
+- FQDN/AuthID-based provisioning for SBC
+- Power control options
+- Local GUI access (via port or Cockpit plugin)
+
+---
+
+## ⚙️ How It Works
+
+- A Flask app serves a web dashboard (originally on port `8080`, now Cockpit embedded)
+- A `systemd` service auto-starts the app on boot
+- A Cockpit plugin provides GUI access inside the Cockpit admin panel (at `https://<pi-ip>:9090`)
+- The app interacts with system tools and services using `psutil`, `hostname`, `systemctl`, and `curl`
+
+---
+
+## 🧱 Requirements
+
+- Raspberry Pi OS (64-bit, Bookworm or Bullseye)
+- Python 3.7+
+- Flask
+- psutil
+- Cockpit (installed and active)
+
+Installation will auto-install all dependencies.
+
+---
+
+## 🗂️ Project Structure
+
+```bash
+pi-dashboard/
+├── install.sh                # Main installer for Flask app and systemd
+├── pi-monitor-dashboard.py  # Flask web app with endpoints and UI
+├── pi-dashboard.service      # systemd unit file to enable the app on boot
+├── cockpit-plugin/          # Cockpit integration folder (v1.1+ only)
+│   ├── index.html            # iframe wrapper for embedded UI
+│   └── manifest.json         # metadata for Cockpit registration
+└── README.md
+```
+
+---
+
+## 🔁 Versions
+
+| Version | Mode                | Access Point                |
+|---------|---------------------|-----------------------------|
+| v1.0    | Flask Standalone    | http://<pi>:8080           |
+| v1.1+   | Embedded in Cockpit | https://<pi>:9090 → Sidebar |
+
+---
+
+## 🚀 Installation
+
+```bash
+curl -sSL https://raw.githubusercontent.com/TheITGuyFW/pi-dashboard/main/install.sh | bash
+```
+
+Or clone the repo:
+
+```bash
+git clone https://github.com/TheITGuyFW/pi-dashboard.git
+cd pi-dashboard
+chmod +x install.sh
+./install.sh
+```
+
+---
+
+## 📚 Usage Overview
+
+- Access via browser at the correct mode (port or Cockpit)
+- Dashboard auto-refreshes stats
+- Install or update SBC via FQDN/AuthID inputs
+- Restart system services in one click
+- Power off, reboot, or schedule power changes
+
+---
+
+## 🧠 Maintainer
+
+**Gabriel M.**  
+Applied Technology Group (ATG)  
+📧 gabrielm@atgfw.com  
+🌐 https://atgfw.com
+
+---
+
+## 🪪 License
+
+MIT — Free to use commercially or privately. Attribution encouraged.
